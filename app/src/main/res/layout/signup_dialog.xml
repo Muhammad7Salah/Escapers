@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:background="#00000000">
+
+   <TextView
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:gravity="center"
+       android:layout_gravity="center"
+       android:text="Sign up"
+       android:textSize="32dp"
+       android:layout_weight="3"
+       android:textColor="#ffffff"
+       android:textStyle="bold"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="E-Mail"
+        android:inputType="text"
+        android:background="@drawable/border"
+        android:paddingLeft="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/email_signup"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:background="@drawable/border"
+        android:paddingLeft="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/password_signup"/>
+
+    <CheckBox
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/showpass"
+        android:text="Show Password"
+        android:layout_marginLeft="16dp"
+        android:textColor="#ffffff"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="UserName"
+        android:background="@drawable/border"
+        android:paddingLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/username_signup"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Age"
+        android:textSize="25dp"
+        android:layout_weight="2"
+        android:textColor="#ffff00"/>
+
+
+</LinearLayout>
