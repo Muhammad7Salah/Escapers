@@ -73,29 +73,4 @@
         android:textColor="#ffff00"/>
 
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:background="@drawable/border"
-        android:hint="Age"
-        android:padding="16dp"
-        android:inputType="numberDecimal"
-        />
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Done"
-        android:background="@drawable/border"
-        android:id="@+id/Done_signup"
-        android:textColorHighlight="#ffff00"
-        android:textColor="#FFFFFF"
-        android:layout_weight="0.1"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        />
-
 </LinearLayout>
