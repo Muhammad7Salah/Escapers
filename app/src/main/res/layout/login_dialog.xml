@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000"
+    android:background="#000000"
     android:weightSum="5"
     tools:context=".MainActivity$PlaceholderFragment">
 
-<TextView
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Log in"
-android:id="@+id/textview_login"
-android:textColor="#FFFFFF"
-android:layout_weight="0.5"
-android:layout_gravity="center"
-android:layout_marginTop="16dp"
-android:textSize="32dp"
-    />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Log in"
+        android:textSize="32dp"
+        android:layout_weight="1"
+        android:textColor="#ffffff"
+        android:textStyle="bold"/>
 
 
 <EditText
@@ -29,15 +27,16 @@ android:inputType="text"
 android:ems="10"
 android:id="@+id/username_login"
 android:focusable="true"
-android:textColor="#0055AA"
+android:paddingLeft="32dp"
+android:textColor="#ffff00"
 android:hint="UserName"
+android:textColorHint="#80ffffff"
 android:maxLength="30"
 android:maxLines="1"
 android:layout_weight="1"
 android:layout_gravity="center"
-android:layout_marginLeft="16dp"
-android:layout_marginRight="16dp"
-    />
+android:layout_margin="16dp"
+android:background="@drawable/border" />
 
 <EditText
 android:layout_width="fill_parent"
@@ -45,15 +44,16 @@ android:layout_height="wrap_content"
 android:inputType="textPassword"
 android:ems="10"
 android:id="@+id/password_login"
-android:textColor="#FFFFFF"
+android:textColor="#FFFF00"
 android:hint="Password"
+android:textColorHint="#80ffffff"
+android:paddingLeft="32dp"
 android:maxLength="16"
 android:maxLines="1"
 android:layout_weight="1"
 android:layout_gravity="center"
-android:layout_marginLeft="16dp"
-android:layout_marginRight="16dp"
-    />
+android:layout_margin="16dp"
+android:background="@drawable/border"/>
 
 
 <TextView
@@ -66,7 +66,6 @@ android:linksClickable="true"
 android:textColor="#FFFFFF"
 android:layout_weight="0.5"
 android:layout_gravity="start"
-android:layout_marginTop="16dp"
 android:layout_marginLeft="16dp"
     />
 
@@ -74,16 +73,16 @@ android:layout_marginLeft="16dp"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:text="Done"
-android:background="#bfbfb8"
+android:background="@drawable/border"
 android:id="@+id/Done"
 android:textColor="#FFFFFF"
 android:onClick="validate_login"
 android:layout_weight="0.1"
+android:layout_margin="32dp"
 android:layout_gravity="center"
 android:layout_marginTop="20dp"
 android:layout_marginLeft="16dp"
 android:layout_marginRight="16dp"
     />
 
-
-    </LinearLayout>
+</LinearLayout>

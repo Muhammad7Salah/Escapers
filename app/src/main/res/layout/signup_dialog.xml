@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="10"
-    android:background="#00000000">
+    android:background="#000000">
 
     <TextView
         android:layout_width="fill_parent"
@@ -22,6 +22,7 @@
         android:layout_weight="1"
         android:hint="E-Mail"
         android:inputType="text"
+        android:textColorHint="#80ffffff"
         android:background="@drawable/border"
         android:paddingLeft="32dp"
         android:layout_marginLeft="16dp"
@@ -36,6 +37,7 @@
         android:inputType="textPassword"
         android:background="@drawable/border"
         android:paddingLeft="32dp"
+        android:textColorHint="#80ffffff"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
@@ -60,6 +62,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:textColorHint="#80ffffff"
         android:id="@+id/username_signup"/>
 
     <TextView
@@ -71,6 +74,26 @@
         android:textSize="25dp"
         android:layout_weight="2"
         android:textColor="#ffff00"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Age"
+        android:textColorHint="#80ffffff"
+        android:padding="16dp"
+        android:background="@drawable/border"
+        android:layout_weight="1"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:layout_weight="1"
+        android:layout_margin="32dp"
+        android:background="@drawable/border"
+        />
+
 
 
 </LinearLayout>
