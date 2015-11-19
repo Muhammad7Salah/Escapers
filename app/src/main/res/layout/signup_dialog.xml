@@ -83,7 +83,8 @@
         android:textColorHint="#80ffffff"
         android:padding="16dp"
         android:background="@drawable/border"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:id="@+id/age_signup"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -91,6 +92,8 @@
         android:text="Done"
         android:layout_weight="1"
         android:layout_margin="32dp"
+        android:textColor="#ffffff"
+        android:id="@+id/done_signup"
         android:background="@drawable/border"
         />
 
