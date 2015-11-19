@@ -21,7 +21,7 @@ public class Welcome extends AppCompatActivity {
     }
     public void signup(View view) {
         final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.signup_dialog);
+        dialog.setContentView(R.layout.login_dialog);
         dialog.show();
     }
 
