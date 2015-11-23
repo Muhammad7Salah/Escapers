@@ -55,6 +55,7 @@ public class Welcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 validate_login();
+                Log.i("escape", "id: " + dbs_username + ", password " + dbs_password);
             }
         });
 
@@ -113,6 +114,7 @@ public class Welcome extends AppCompatActivity {
             }
         });
         login.start();
+
         if (s_username.matches("") && s_password.matches("")) {
 
             Toast.makeText(getApplicationContext(), "Please, fill the fields", Toast.LENGTH_SHORT).show();
@@ -125,8 +127,8 @@ public class Welcome extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please, Enter the Password!", Toast.LENGTH_SHORT).show();
 
         } else if (s_username.equals(dbs_username) && s_password.equals(dbs_password)) {
-            Log.i("memo", "id: " + dbs_username + ", password " + dbs_password);
-            Intent intent = new Intent(this, Welcome.class);
+
+            Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent);
 
         } else {
