@@ -31,11 +31,16 @@ public class Welcome extends AppCompatActivity {
 
     EditText username;
     EditText password;
+    EditText username_register;
+    EditText email_register;
+    EditText age_register;
+    EditText password_register;
     String dbs_username;
     String dbs_password;
     String result = null;
     List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
     String url="http://escape.6te.net/login.php";
+    String url_signup="http://escape.6te.net/Registeration.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +65,60 @@ public class Welcome extends AppCompatActivity {
         });
 
     }
-    public void signup(View view) {
+    public void signup(final View view) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.signup_dialog);
+        username_register=(EditText)dialog.findViewById(R.id.username_signup);
+        password_register=(EditText)dialog.findViewById(R.id.password_signup);
+        email_register=(EditText)dialog.findViewById(R.id.email_signup);
+        age_register=(EditText)dialog.findViewById(R.id.age_signup);
         dialog.show();
+        Button done=(Button)dialog.findViewById(R.id.done_signup);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                register();
+            }
+        });
+
+    }
+
+    private void register() {
+        final String reg_username = username_register.getText().toString();
+        final String reg_email= email_register.getText().toString();
+        final String reg_password = password_register.getText().toString();
+        final String reg_age = age_register.getText().toString();
+        Thread register = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Creating HTTP client
+                    HttpClient httpClient = new DefaultHttpClient();
+                    // Creating HTTP Post
+                    HttpPost httpPost = new HttpPost(url_signup);
+                    // Building post parameters
+                    // key and value pair
+                    nameValuePair.add(new BasicNameValuePair("UserName", reg_username));
+                    nameValuePair.add(new BasicNameValuePair("Email", reg_email));
+                    nameValuePair.add(new BasicNameValuePair("Password", reg_password));
+                    nameValuePair.add(new BasicNameValuePair("Age", reg_age));
+
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    result = EntityUtils.toString(entity);
+
+                    JSONArray jsonArray = new JSONArray(result);
+                    JSONObject jsonObject = null;
+
+                        //????????
+                    }
+                catch (Exception e){
+
+                }
+            }
+        });
 
     }
 
@@ -138,4 +193,5 @@ public class Welcome extends AppCompatActivity {
         }
 
     }
+
 }
