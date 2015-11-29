@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minWidth="20in"
     android:weightSum="10"
     android:background="#000000">
 
@@ -22,7 +23,8 @@
         android:layout_weight="1"
         android:hint="E-Mail"
         android:inputType="text"
-        android:textColorHint="#80ffffff"
+        android:textColorHint="#ffffff00"
+        android:textColor="#ffffff00"
         android:background="@drawable/border"
         android:paddingLeft="32dp"
         android:layout_marginLeft="16dp"
@@ -37,11 +39,13 @@
         android:inputType="textPassword"
         android:background="@drawable/border"
         android:paddingLeft="32dp"
-        android:textColorHint="#80ffffff"
+        android:textColorHint="#ffffff00"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:id="@+id/password_signup"/>
+        android:id="@+id/password_signup"
+        android:textColor="#ffffff00"
+        />
 
     <CheckBox
         android:layout_width="fill_parent"
@@ -50,6 +54,7 @@
         android:text="Show Password"
         android:layout_marginLeft="16dp"
         android:textColor="#ffffff"
+
         />
 
     <EditText
@@ -62,8 +67,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:textColorHint="#80ffffff"
-        android:id="@+id/username_signup"/>
+        android:textColorHint="#ffffff00"
+        android:id="@+id/username_signup"
+        android:textColor="#ffffff00"
+        />
 
     <TextView
         android:layout_width="fill_parent"
@@ -73,18 +80,21 @@
         android:text="Age"
         android:textSize="25dp"
         android:layout_weight="2"
-        android:textColor="#ffff00"/>
+        android:textColor="#ffff00"
+        />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Age"
-        android:textColorHint="#80ffffff"
+        android:textColorHint="#ffffff00"
         android:padding="16dp"
         android:background="@drawable/border"
         android:layout_weight="1"
-        android:id="@+id/age_signup"/>
+        android:id="@+id/age_signup"
+        android:textColor="#ffffff00"
+        />
 
     <Button
         android:layout_width="fill_parent"
@@ -94,7 +104,6 @@
         android:layout_margin="32dp"
         android:textColor="#ffffff"
         android:id="@+id/done_signup"
-        android:onClick="Register"
         android:background="@drawable/border"
         />
 

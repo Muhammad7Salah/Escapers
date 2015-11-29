@@ -40,7 +40,7 @@ public class Welcome extends AppCompatActivity {
     String result = null;
     List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
     String url="http://escape.6te.net/login.php";
-    String url_signup="http://escape.6te.net/Registeration.php";
+    String url_signup="http://escape.6te.net/Registration.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +55,27 @@ public class Welcome extends AppCompatActivity {
         username=(EditText)dialog.findViewById(R.id.username_login);
         password=(EditText)dialog.findViewById(R.id.password_login);
         dialog.show();
-        Button done=(Button)dialog.findViewById(R.id.done_login);
-        done.setOnClickListener(new View.OnClickListener() {
+        Button done_login=(Button)dialog.findViewById(R.id.done_login);
+        done_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validate_login();
+                final String ss_username = username.getText().toString();
+                final String ss_password = password.getText().toString();
+                if (ss_username.matches("") && ss_password.matches("")) {
+
+                    Toast.makeText(getApplicationContext(), "Please, fill the fields", Toast.LENGTH_SHORT).show();
+                } else if (ss_username.matches("")) {
+
+                    Toast.makeText(getApplicationContext(), "Please, Enter User Name!", Toast.LENGTH_SHORT).show();
+
+                } else if (ss_password.matches("")) {
+
+                    Toast.makeText(getApplicationContext(), "Please, Enter the Password!", Toast.LENGTH_SHORT).show();
+
+                }else {
+                    validate_login(ss_username, ss_password);
+                }
+
                 Log.i("escape", "id: " + dbs_username + ", password " + dbs_password);
             }
         });
@@ -78,6 +94,7 @@ public class Welcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 register();
+
             }
         });
 
@@ -99,36 +116,29 @@ public class Welcome extends AppCompatActivity {
                     // Building post parameters
                     // key and value pair
                     nameValuePair.add(new BasicNameValuePair("UserName", reg_username));
+                    nameValuePair.add(new BasicNameValuePair("Age", reg_age));
                     nameValuePair.add(new BasicNameValuePair("Email", reg_email));
                     nameValuePair.add(new BasicNameValuePair("Password", reg_password));
-                    nameValuePair.add(new BasicNameValuePair("Age", reg_age));
 
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
                     HttpResponse response = httpClient.execute(httpPost);
                     HttpEntity entity = response.getEntity();
 
-                    result = EntityUtils.toString(entity);
-
-                    JSONArray jsonArray = new JSONArray(result);
-                    JSONObject jsonObject = null;
-
-                        //????????
                     }
                 catch (Exception e){
-
-                }
+                    Log.i("escape" , e.getMessage());           }
             }
         });
-
+        register.start();
+        Log.i("escape",reg_username);
     }
 
     public void forgotPassword(View view) {
     }
 
 
-    public void validate_login() {
-        final String s_username = username.getText().toString();
-        final String s_password = password.getText().toString();
+    public void validate_login(final String s_username,final String s_password) {
+
         Thread login = new Thread(new Runnable() {
 
 
@@ -143,15 +153,13 @@ public class Welcome extends AppCompatActivity {
                     // Building post parameters
                     // key and value pair
                     nameValuePair.add(new BasicNameValuePair("UserName", s_username));
-                    nameValuePair.add(new BasicNameValuePair("Password", s_password));
-
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
                     HttpResponse response = httpClient.execute(httpPost);
                     HttpEntity entity = response.getEntity();
 
                     result = EntityUtils.toString(entity);
 
-                    Log.i("escape", result.toString());
+                    Log.i("escape", result.toString()+"1111");
 
                     JSONArray jsonArray = new JSONArray(result);
                     JSONObject jsonObject = null;
@@ -163,34 +171,23 @@ public class Welcome extends AppCompatActivity {
 
                     }
 
+                    if (s_username.equals(dbs_username) && s_password.equals(dbs_password)) {
+
+                        Intent intent = new Intent(Welcome.this, MapsActivity.class);
+                        startActivity(intent);
+
+                    } else {
+
+                        Toast.makeText(getApplicationContext(), "wrong email or password!", Toast.LENGTH_SHORT).show();
+
+                    }
+
                 } catch (Exception e) {
-                    Log.i("escape", e.getMessage());
+                    Log.i("escape", "yanhaar  "+e.getMessage());
                 }
             }
         });
         login.start();
-
-        if (s_username.matches("") && s_password.matches("")) {
-
-            Toast.makeText(getApplicationContext(), "Please, fill the fields", Toast.LENGTH_SHORT).show();
-        } else if (s_username.matches("")) {
-
-            Toast.makeText(getApplicationContext(), "Please, Enter User Name!", Toast.LENGTH_SHORT).show();
-
-        } else if (password.getText().toString().matches("")) {
-
-            Toast.makeText(getApplicationContext(), "Please, Enter the Password!", Toast.LENGTH_SHORT).show();
-
-        } else if (s_username.equals(dbs_username) && s_password.equals(dbs_password)) {
-
-            Intent intent = new Intent(this, MapsActivity.class);
-            startActivity(intent);
-
-        } else {
-
-            Toast.makeText(getApplicationContext(), "wrong email or password!", Toast.LENGTH_SHORT).show();
-
-        }
 
     }
 

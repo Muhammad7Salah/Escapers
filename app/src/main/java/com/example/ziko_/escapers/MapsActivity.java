@@ -8,6 +8,7 @@ import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,16 +19,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
 
     private GoogleMap mMap;
-    private static final long min_distance=1; //1 meter
-    private static final long min_time=1*60*1000; //1 minute
+    private static final long min_distance=500; //1 meter
+    private static final long min_time=5*60*1000; //1 minute
     ArrayList <Location> current=new ArrayList<Location>();
+    Queue <Location> current_salah=new LinkedList<Location>();
     LocationManager locationManager;
     String provider;
     float total_distance=0;
+    TextView textView;
+    String dist=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+       textView=(TextView) findViewById(R.id.distance);
        //GET Location object
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Creating an empty criteria object
@@ -47,13 +54,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Location location=locationManager.getLastKnownLocation(provider);
             locationManager.requestLocationUpdates(provider, min_time, min_distance, (LocationListener) this);
             current.add(location);
-            if (location!=null){
-
+            current_salah.add(location);
+            Location old_location = current.get(current.size() - 1);
+            /*if (location!=null){
                 onLocationChanged(location);
             }
             else{
                 Toast.makeText(getBaseContext(),"Wait to retrive Location",Toast.LENGTH_SHORT).show();
-            }
+            }*/
 
         }
     }
@@ -68,13 +76,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        Location old_location=current.get(current.size()-2);
-         float distance=old_location.distanceTo(location);
-        total_distance+=distance;
-        //String dist=Float.toString(total_distance);
-        //Toast.makeText(getBaseContext(),dist,Toast.LENGTH_SHORT).show();
-    }
+    Log.i("escape","BYE");
+/*
+            if(current_salah!=null) {
+                float distance = current_salah.poll().distanceTo(location);
+                total_distance += distance;
+                Log.i("escape", String.valueOf(total_distance));
+                dist = Float.toString(total_distance);
+                textView.setText(dist);
+                //Toast.makeText(getBaseContext(),dist,Toast.LENGTH_SHORT).show();
+            }
+*/
 
+    }
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
