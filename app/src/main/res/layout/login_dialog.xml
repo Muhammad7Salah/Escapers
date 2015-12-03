@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="#000000"
     android:weightSum="5"
+    android:minWidth="20in"
     tools:context=".MainActivity$PlaceholderFragment">
 
     <TextView

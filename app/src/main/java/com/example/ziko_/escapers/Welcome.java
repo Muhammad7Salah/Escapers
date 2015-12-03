@@ -1,6 +1,7 @@
 package com.example.ziko_.escapers;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -41,21 +44,35 @@ public class Welcome extends AppCompatActivity {
     List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
     String url="http://escape.6te.net/login.php";
     String url_signup="http://escape.6te.net/Registration.php";
-
+    private ProgressDialog progressDialog;
+    private ViewFlipper viewFlipper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.view_fliper);
+        viewFlipper=(ViewFlipper) findViewById(R.id.view_flipper);
+
 
     }
+    @Override
+    public void onBackPressed (){
+        viewFlipper.setInAnimation(this, R.anim.in_from_right);
+        viewFlipper.setOutAnimation(this, R.anim.out_to_left);
+        viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.welcome)));
+    }
+
 
     public void login(View view) {
-        final Dialog dialog = new Dialog(this);
+        /*final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.login_dialog);
-        username=(EditText)dialog.findViewById(R.id.username_login);
-        password=(EditText)dialog.findViewById(R.id.password_login);
-        dialog.show();
-        Button done_login=(Button)dialog.findViewById(R.id.done_login);
+        */
+        viewFlipper.setInAnimation(this, R.anim.in_from_left);
+        viewFlipper.setOutAnimation(this, R.anim.out_to_right);
+        viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.dialog_login)));
+        username=(EditText) findViewById(R.id.username_login);
+        password=(EditText) findViewById(R.id.password_login);
+        //dialog.show();
+        Button done_login=(Button) findViewById(R.id.done_login);
         done_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,14 +99,18 @@ public class Welcome extends AppCompatActivity {
 
     }
     public void signup(final View view) {
-        final Dialog dialog = new Dialog(this);
+        /*final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.signup_dialog);
-        username_register=(EditText)dialog.findViewById(R.id.username_signup);
-        password_register=(EditText)dialog.findViewById(R.id.password_signup);
-        email_register=(EditText)dialog.findViewById(R.id.email_signup);
-        age_register=(EditText)dialog.findViewById(R.id.age_signup);
-        dialog.show();
-        Button done=(Button)dialog.findViewById(R.id.done_signup);
+        */
+        viewFlipper.setInAnimation(this, R.anim.in_from_left);
+        viewFlipper.setOutAnimation(this, R.anim.out_to_right);
+        viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.dialog_signup)));
+        username_register=(EditText) findViewById(R.id.username_signup);
+        password_register= (EditText) findViewById(R.id.password_signup);
+        email_register=(EditText) findViewById(R.id.email_signup);
+        age_register=(EditText) findViewById(R.id.age_signup);
+       // dialog.show();
+        Button done=(Button) findViewById(R.id.done_signup);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +159,11 @@ public class Welcome extends AppCompatActivity {
 
 
     public void validate_login(final String s_username,final String s_password) {
-
+        progressDialog= new ProgressDialog(this);
+        progressDialog.setTitle("Processing...");
+        progressDialog.setMessage("Please Wait .");
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
         Thread login = new Thread(new Runnable() {
 
 
@@ -146,6 +171,7 @@ public class Welcome extends AppCompatActivity {
             public void run() {
 
                 try {
+
                     // Creating HTTP client
                     HttpClient httpClient = new DefaultHttpClient();
                     // Creating HTTP Post
@@ -175,7 +201,7 @@ public class Welcome extends AppCompatActivity {
 
                         Intent intent = new Intent(Welcome.this, MapsActivity.class);
                         startActivity(intent);
-
+                        progressDialog.dismiss();
                     } else {
 
                         Toast.makeText(getApplicationContext(), "wrong email or password!", Toast.LENGTH_SHORT).show();
@@ -183,7 +209,7 @@ public class Welcome extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    Log.i("escape", "yanhaar  "+e.getMessage());
+                    Log.i("escape",e.getMessage());
                 }
             }
         });

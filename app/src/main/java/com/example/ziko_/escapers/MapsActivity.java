@@ -1,6 +1,7 @@
 package com.example.ziko_.escapers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -8,6 +9,7 @@ import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,15 +27,21 @@ import java.util.Queue;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
 
     private GoogleMap mMap;
-    private static final long min_distance=500; //1 meter
-    private static final long min_time=5*60*1000; //1 minute
+    private static final long min_distance=10; //1 meter
+    private static final long min_time=100; //1 minute
     ArrayList <Location> current=new ArrayList<Location>();
-    Queue <Location> current_salah=new LinkedList<Location>();
     LocationManager locationManager;
     String provider;
     float total_distance=0;
-    TextView textView;
+    //TextView textView;
     String dist=null;
+    double longi=0;
+    double lati=0;
+    TextView total;
+    /*
+        to remove search location and don't drain battery
+        locationManager.removeUpdates(this);
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +50,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-       textView=(TextView) findViewById(R.id.distance);
+       //textView=(TextView) findViewById(R.id.distance);
+        total=(TextView) findViewById(R.id.total_distance);
        //GET Location object
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Creating an empty criteria object
@@ -51,9 +60,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         provider=locationManager.getBestProvider(criteria,false);
         if(provider!=null && !provider.equals("")){
             //GET the location from the given provider
-            Location location=locationManager.getLastKnownLocation(provider);
-            locationManager.requestLocationUpdates(provider, min_time, min_distance, (LocationListener) this);
-            current.add(location);
+           // Location location=locationManager.getLastKnownLocation(provider);
+            locationManager.requestLocationUpdates(provider,min_time,min_distance , (LocationListener) this);
+
         }
     }
 
@@ -67,13 +76,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-    Log.i("escape","BYE");
-            if(current!=null) {
-                float distance = location.distanceTo(current.get(current.size()-1));
+
+        current.add(location);
+
+            if(current.size()>1) {
+                float distance = current.get(current.size()-1).distanceTo(current.get(current.size()-2));
                 total_distance += distance;
-                Log.i("escape", String.valueOf(total_distance));
                 dist = Float.toString(total_distance);
-                textView.setText(dist);
+                //String local=Float.toString(distance);
+                //textView.setText(local);
+                total.setText(dist);
                 //Toast.makeText(getBaseContext(),dist,Toast.LENGTH_SHORT).show();
             }
 
@@ -90,6 +102,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onProviderDisabled(String provider) {
+
+    }
+
+    public void create_route(View view) {
+        Intent intent = new Intent(MapsActivity.this, Create_route.class);
+        startActivity(intent);
 
     }
 }

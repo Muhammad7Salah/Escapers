@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/view_flipper"
+    >
+    <include android:id="@+id/welcome" layout="@layout/activity_welcome">
+
+    </include>
+    <include android:id="@+id/dialog_login" layout="@layout/login_dialog">
+
+    </include>
+    <include android:id="@+id/dialog_signup" layout="@layout/signup_dialog">
+
+    </include>
+</ViewFlipper>

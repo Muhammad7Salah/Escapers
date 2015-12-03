@@ -4,23 +4,32 @@
     android:layout_height="match_parent" android:id="@+id/map"
     tools:context="com.example.ziko_.escapers.MapsActivity"
     android:name="com.google.android.gms.maps.SupportMapFragment" >
-
+<!--
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
-        android:textSize="64sp"
+        android:textSize="32sp"
         android:id="@+id/distance"
-        android:text="@string/Escape"
+        android:text="@string/Total"
         android:textColor="#ffffff"
+        />-->
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:textSize="32sp"
+        android:id="@+id/total_distance"
+        android:text="@string/Escape"
+        android:textColor="#000000"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|right"
-        android:text="Show Location"
-        android:id="@+id/show_location"
+        android:text="Create Route"
+        android:id="@+id/Create_route"
         android:padding="10dp"
+        android:onClick="create_route"
         android:layout_marginTop="20dp"
         android:paddingRight="10dp"/>
 

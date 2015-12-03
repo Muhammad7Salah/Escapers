@@ -2,4 +2,6 @@
     <string name="app_name">Escapers</string>
     <string name="Escape">Escape</string>
     <string name="title_activity_maps">Map</string>
+    <string name="Total">Total</string>
+    <string name="title_activity_create_route">Map</string>
 </resources>
