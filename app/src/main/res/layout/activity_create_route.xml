@@ -5,4 +5,15 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ziko_.escapers.Create_route" />
+    tools:context="com.example.ziko_.escapers.Create_route"
+    >
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:textSize="32sp"
+        android:id="@+id/total_distance_route"
+        android:text="@string/Escape"
+        android:textColor="#000000"
+        />
+
+</fragment>

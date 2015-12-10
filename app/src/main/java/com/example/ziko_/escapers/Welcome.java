@@ -3,6 +3,7 @@ package com.example.ziko_.escapers;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -38,6 +40,7 @@ public class Welcome extends AppCompatActivity {
     EditText email_register;
     EditText age_register;
     EditText password_register;
+    NumberPicker numberPicker;
     String dbs_username;
     String dbs_password;
     String result = null;
@@ -55,10 +58,21 @@ public class Welcome extends AppCompatActivity {
 
     }
     @Override
-    public void onBackPressed (){
-        viewFlipper.setInAnimation(this, R.anim.in_from_right);
-        viewFlipper.setOutAnimation(this, R.anim.out_to_left);
-        viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.welcome)));
+    public void onBackPressed () {
+        if (viewFlipper.getDisplayedChild() == 0) {
+            super.onBackPressed();
+        }
+        if(viewFlipper.getDisplayedChild()==1){
+            viewFlipper.setInAnimation(this,R.anim.in_from_left);
+            viewFlipper.setOutAnimation(this, R.anim.out_to_right);
+            viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.welcome)));
+        }
+        if (viewFlipper.getDisplayedChild() == 2) {
+            viewFlipper.setInAnimation(this, R.anim.in_from_right);
+            viewFlipper.setOutAnimation(this, R.anim.out_to_left);
+            viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.welcome)));
+
+        }
     }
 
 
@@ -66,8 +80,8 @@ public class Welcome extends AppCompatActivity {
         /*final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.login_dialog);
         */
-        viewFlipper.setInAnimation(this, R.anim.in_from_left);
-        viewFlipper.setOutAnimation(this, R.anim.out_to_right);
+        viewFlipper.setInAnimation(this, R.anim.in_from_right);
+        viewFlipper.setOutAnimation(this, R.anim.out_to_left);
         viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.dialog_login)));
         username=(EditText) findViewById(R.id.username_login);
         password=(EditText) findViewById(R.id.password_login);
@@ -108,8 +122,14 @@ public class Welcome extends AppCompatActivity {
         username_register=(EditText) findViewById(R.id.username_signup);
         password_register= (EditText) findViewById(R.id.password_signup);
         email_register=(EditText) findViewById(R.id.email_signup);
-        age_register=(EditText) findViewById(R.id.age_signup);
-       // dialog.show();
+        //age_register=(EditText) findViewById(R.id.age_signup);
+        numberPicker=(NumberPicker) findViewById(R.id.numberPicker);
+        numberPicker.setMinValue(1);// restricted number to minimum value i.e 1
+        numberPicker.setMaxValue(100);// restricked number to maximum value i.e. 31
+        numberPicker.setWrapSelectorWheel(true);
+        numberPicker.setBackgroundColor(Color.YELLOW);
+
+        // dialog.show();
         Button done=(Button) findViewById(R.id.done_signup);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +145,8 @@ public class Welcome extends AppCompatActivity {
         final String reg_username = username_register.getText().toString();
         final String reg_email= email_register.getText().toString();
         final String reg_password = password_register.getText().toString();
-        final String reg_age = age_register.getText().toString();
+        int number= numberPicker.getValue();
+        final String reg_age= Integer.toString(number);
         Thread register = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -152,6 +173,10 @@ public class Welcome extends AppCompatActivity {
         });
         register.start();
         Log.i("escape",reg_username);
+        viewFlipper.setInAnimation(this, R.anim.in_from_right);
+        viewFlipper.setOutAnimation(this, R.anim.out_to_left);
+        viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.welcome)));
+
     }
 
     public void forgotPassword(View view) {

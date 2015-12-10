@@ -8,6 +8,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,6 +30,12 @@ public class Create_route extends FragmentActivity implements OnMapReadyCallback
     ArrayList<LatLng> routes = new ArrayList<LatLng>();
     PolylineOptions polylineOptions;
     Polyline polyline;
+    float distance;
+    float total_distance_route=0;
+    String dist;
+    TextView total;
+    Location locationA = new Location("A");
+    Location locationB = new Location("B");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +44,7 @@ public class Create_route extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        total=(TextView) findViewById(R.id.total_distance_route);
 
     }
 
@@ -43,6 +52,7 @@ public class Create_route extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void onMyLocationChange(Location location) {
             LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+
 /*
             if(mMap != null){
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.0f));
@@ -75,8 +85,20 @@ public class Create_route extends FragmentActivity implements OnMapReadyCallback
     public void onMapLongClick(LatLng latLng) {
         mMap.addMarker(new MarkerOptions().position(latLng).title("start").draggable(true));
         routes.add(latLng);
+        if(routes.size()>1) {
+            locationA.setLatitude(routes.get(routes.size() - 1).latitude);
+            locationA.setLongitude(routes.get(routes.size() - 1).longitude);
+            locationB.setLatitude(routes.get(routes.size() - 2).latitude);
+            locationB.setLongitude(routes.get(routes.size() - 2).longitude);
+            distance=locationB.distanceTo(locationA);
+            total_distance_route+=distance;
+            dist = Float.toString(total_distance_route);
+            total.setText(dist);
+        }
         polylineOptions =new PolylineOptions().addAll(routes).width(10).color(Color.BLUE);
         polyline = mMap.addPolyline(polylineOptions);
+
+
     }
 
     @Override
@@ -91,8 +113,20 @@ public class Create_route extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
+        total_distance_route -= distance;
         routes.remove(routes.size() - 1);
         routes.add(marker.getPosition());
+        locationA.setLatitude(routes.get(routes.size() - 1).latitude);
+        locationA.setLongitude(routes.get(routes.size() - 1).longitude);
+        locationB.setLatitude(routes.get(routes.size() - 2).latitude);
+        locationB.setLongitude(routes.get(routes.size() - 2).longitude);
+        float distance_change=locationB.distanceTo(locationA);
+        Log.i("escape",Float.toString(distance_change));
+        total_distance_route+=distance_change;
+        dist = Float.toString(total_distance_route);
+        total.setText(dist);
         polyline.remove();
+        polylineOptions =new PolylineOptions().addAll(routes).width(10).color(Color.BLUE);
+        polyline = mMap.addPolyline(polylineOptions);
     }
 }

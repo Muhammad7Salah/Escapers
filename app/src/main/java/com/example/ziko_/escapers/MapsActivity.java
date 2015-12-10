@@ -2,6 +2,7 @@ package com.example.ziko_.escapers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -19,6 +20,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -30,8 +33,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final long min_distance=10; //1 meter
     private static final long min_time=100; //1 minute
     ArrayList <Location> current=new ArrayList<Location>();
+    ArrayList <LatLng> polylines=new ArrayList<LatLng>();
     LocationManager locationManager;
     String provider;
+    PolylineOptions polylineOptions;
+    Polyline polyline;
     float total_distance=0;
     //TextView textView;
     String dist=null;
@@ -76,9 +82,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-
         current.add(location);
-
+        LatLng point = new LatLng(location.getLatitude(),location.getLongitude());
+        polylines.add(point);
+        polylineOptions =new PolylineOptions().addAll(polylines).width(10).color(Color.BLUE);
+        polyline = mMap.addPolyline(polylineOptions);
             if(current.size()>1) {
                 float distance = current.get(current.size()-1).distanceTo(current.get(current.size()-2));
                 total_distance += distance;

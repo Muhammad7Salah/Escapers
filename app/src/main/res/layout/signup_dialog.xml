@@ -96,6 +96,14 @@
         android:textColor="#ffffff00"
         />
 
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="3"
+        />
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
