@@ -24,7 +24,7 @@
 <EditText
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
-android:inputType="text"
+android:inputType="text|textEmailSubject|textEmailAddress"
 android:ems="10"
 android:id="@+id/username_login"
 android:focusable="true"
@@ -32,12 +32,15 @@ android:paddingLeft="32dp"
 android:textColor="#ffff00"
 android:hint="UserName"
 android:textColorHint="#80ffffff"
-android:maxLength="30"
+android:maxLength="64"
 android:maxLines="1"
 android:layout_weight="1"
 android:layout_gravity="center"
 android:layout_margin="16dp"
-android:background="@drawable/border" />
+android:background="@drawable/border"
+    android:lines="1"
+    android:maxHeight="1dp"
+    android:minLines="1" />
 
 <EditText
 android:layout_width="fill_parent"
@@ -54,7 +57,9 @@ android:maxLines="1"
 android:layout_weight="1"
 android:layout_gravity="center"
 android:layout_margin="16dp"
-android:background="@drawable/border"/>
+android:background="@drawable/border"
+    android:minLines="1"
+    android:lines="1" />
 
 
 <TextView
@@ -82,7 +87,6 @@ android:layout_margin="32dp"
 android:layout_gravity="center"
 android:layout_marginTop="20dp"
 android:layout_marginLeft="16dp"
-android:layout_marginRight="16dp"
-    />
+android:layout_marginRight="16dp" />
 
 </LinearLayout>

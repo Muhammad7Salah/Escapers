@@ -131,6 +131,10 @@ public class Welcome extends AppCompatActivity {
 
         // dialog.show();
         Button done=(Button) findViewById(R.id.done_signup);
+        if(email_register.equals("")||username_register.equals("")|| password_register.equals("")||age_register.equals(""))
+            Toast.makeText(getApplicationContext(),"please,Enter all the fields!",Toast.LENGTH_SHORT).show();
+        
+        else
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

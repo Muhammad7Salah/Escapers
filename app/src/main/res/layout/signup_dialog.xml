@@ -29,7 +29,11 @@
         android:paddingLeft="32dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:id="@+id/email_signup"/>
+        android:id="@+id/email_signup"
+        android:singleLine="true"
+        android:minLines="1"
+        android:maxLines="1"
+        android:lines="1" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -45,7 +49,9 @@
         android:layout_marginTop="16dp"
         android:id="@+id/password_signup"
         android:textColor="#ffffff00"
-        />
+        android:lines="1"
+        android:maxLines="1"
+        android:minLines="1" />
 
     <CheckBox
         android:layout_width="fill_parent"
@@ -94,7 +100,11 @@
         android:layout_weight="1"
         android:id="@+id/age_signup"
         android:textColor="#ffffff00"
-        />
+        android:minLines="1"
+        android:maxLines="1"
+        android:numeric="integer"
+        android:maxLength="2"
+        android:minWidth="2dp" />
 
     <NumberPicker
         android:layout_width="wrap_content"
