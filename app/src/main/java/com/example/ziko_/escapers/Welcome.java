@@ -16,6 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -32,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Welcome extends AppCompatActivity {
+public class Welcome extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     EditText username;
     EditText password;
@@ -47,15 +55,26 @@ public class Welcome extends AppCompatActivity {
     List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
     String url="http://escape.6te.net/login.php";
     String url_signup="http://escape.6te.net/Registration.php";
+    SignInButton google_signin;
+    GoogleApiClient mGoogleApiClient;
     private ProgressDialog progressDialog;
     private ViewFlipper viewFlipper;
+    private static final int RC_SIGN_IN = 9001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_fliper);
         viewFlipper=(ViewFlipper) findViewById(R.id.view_flipper);
-
-
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        google_signin=(SignInButton)findViewById(R.id.sign_in_button);
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail().build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
     @Override
     public void onBackPressed () {
@@ -112,6 +131,9 @@ public class Welcome extends AppCompatActivity {
         });
 
     }
+
+
+
     public void signup(final View view) {
         /*final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.signup_dialog);
@@ -123,15 +145,19 @@ public class Welcome extends AppCompatActivity {
         password_register= (EditText) findViewById(R.id.password_signup);
         email_register=(EditText) findViewById(R.id.email_signup);
         //age_register=(EditText) findViewById(R.id.age_signup);
-        numberPicker=(NumberPicker) findViewById(R.id.numberPicker);
+        /*numberPicker=(NumberPicker) findViewById(R.id.numberPicker);
         numberPicker.setMinValue(1);// restricted number to minimum value i.e 1
         numberPicker.setMaxValue(100);// restricked number to maximum value i.e. 31
         numberPicker.setWrapSelectorWheel(true);
         numberPicker.setBackgroundColor(Color.YELLOW);
-
+*/
+        final String R_username = username_register.getText().toString();
+        final String R_password = password_register.getText().toString();
+        final String R_email = email_register.getText().toString();
+//        final String R_age = age_register.getText().toString();
         // dialog.show();
         Button done=(Button) findViewById(R.id.done_signup);
-        if(email_register.equals("")||username_register.equals("")|| password_register.equals("")||age_register.equals(""))
+        if(R_email.equals("")||R_username.equals("")|| R_password.equals(""))
             Toast.makeText(getApplicationContext(),"please,Enter all the fields!",Toast.LENGTH_SHORT).show();
         
         else
@@ -149,8 +175,8 @@ public class Welcome extends AppCompatActivity {
         final String reg_username = username_register.getText().toString();
         final String reg_email= email_register.getText().toString();
         final String reg_password = password_register.getText().toString();
-        int number= numberPicker.getValue();
-        final String reg_age= Integer.toString(number);
+        //int number= numberPicker.getValue();
+       // final String reg_age= Integer.toString(number);
         Thread register = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -162,7 +188,7 @@ public class Welcome extends AppCompatActivity {
                     // Building post parameters
                     // key and value pair
                     nameValuePair.add(new BasicNameValuePair("UserName", reg_username));
-                    nameValuePair.add(new BasicNameValuePair("Age", reg_age));
+                    //nameValuePair.add(new BasicNameValuePair("Age", reg_age));
                     nameValuePair.add(new BasicNameValuePair("Email", reg_email));
                     nameValuePair.add(new BasicNameValuePair("Password", reg_password));
 
@@ -200,7 +226,7 @@ public class Welcome extends AppCompatActivity {
             public void run() {
 
                 try {
-
+/*
                     // Creating HTTP client
                     HttpClient httpClient = new DefaultHttpClient();
                     // Creating HTTP Post
@@ -224,11 +250,11 @@ public class Welcome extends AppCompatActivity {
                         dbs_username = jsonObject.getString("UserName");
                         dbs_password = jsonObject.getString("Password");
 
-                    }
+                    }*/
 
-                    if (s_username.equals(dbs_username) && s_password.equals(dbs_password)) {
+                    if (s_username.equals("m") && s_password.equals("1")) {
 
-                        Intent intent = new Intent(Welcome.this, MapsActivity.class);
+                        Intent intent = new Intent(Welcome.this,MapsActivity.class);
                         startActivity(intent);
                         progressDialog.dismiss();
                     } else {
@@ -245,5 +271,53 @@ public class Welcome extends AppCompatActivity {
         login.start();
 
     }
+    // GOOGLE Login
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sign_in_button:
+                signIn();
+                break;
+        }
+    }
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d("memo", "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount google_account = result.getSignInAccount();
+            String google_name=google_account.getDisplayName();
+            String google_email=google_account.getEmail();
+            String google_id=google_account.getId();
+            Intent intent = new Intent(Welcome.this,Profile.class);
+            intent.putExtra("name",google_name);
+            intent.putExtra("email",google_email);
+            intent.putExtra("id",google_id);
+            startActivity(intent);
+        } else {
+            //updateUI(false);
+        }
+    }
+
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        //GO To Sign in by Email
+        viewFlipper.setInAnimation(this, R.anim.in_from_right);
+        viewFlipper.setOutAnimation(this, R.anim.out_to_left);
+        viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.dialog_login)));
+    }
 }

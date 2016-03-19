@@ -89,30 +89,16 @@
         android:textColor="#ffff00"
         />
 
-    <EditText
-        android:layout_width="wrap_content"
+    <com.wefika.horizontalpicker.HorizontalPicker
+        xmlns:picker="http://schemas.android.com/apk/res/com.example.ziko_.escapers"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="Age"
-        android:textColorHint="#ffffff00"
-        android:padding="16dp"
-        android:background="@drawable/border"
-        android:layout_weight="1"
-        android:id="@+id/age_signup"
-        android:textColor="#ffffff00"
-        android:minLines="1"
-        android:maxLines="1"
-        android:numeric="integer"
-        android:maxLength="2"
-        android:minWidth="2dp" />
+        android:textColor="#ffff00"
+        android:textSize="15dp"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="-1"
+        picker:values="@array/values" />
 
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/numberPicker"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="3"
-        />
 
     <Button
         android:layout_width="fill_parent"

@@ -5,4 +5,23 @@
     <string name="Total">Total</string>
     <string name="title_activity_create_route">Map</string>
     <string name="title_activity_profile">Profile</string>
+    <string-array name="values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    // value of sideItems
+    `<integer name="sideItems">3</integer>`
+
+    // value of text size:
+    <dimen name="textSize">16dp</dimen>
+    //value of padding:
+    <dimen name="itemPadding">8dp</dimen>
 </resources>

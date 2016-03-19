@@ -1,6 +1,7 @@
 package com.example.ziko_.escapers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -128,5 +130,10 @@ public class Create_route extends FragmentActivity implements OnMapReadyCallback
         polyline.remove();
         polylineOptions =new PolylineOptions().addAll(routes).width(10).color(Color.BLUE);
         polyline = mMap.addPolyline(polylineOptions);
+    }
+    public void events_Activity(View view) {
+        Intent intent = new Intent(Create_route.this, BoomEvents.class);
+        startActivity(intent);
+
     }
 }
