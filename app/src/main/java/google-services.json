@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_id": "enhanced-canyon-113719",
+    "project_number": "194174017313",
+    "name": "Escapers"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194174017313:android:68239dd4a172b651",
+        "client_id": "android:com.example.ziko_.escapers",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.ziko_.escapers",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194174017313-iam3he53rbpp9qgnv5isg197h5vi7bk1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ziko_.escapers",
+            "certificate_hash": "01A3788F839EC4CCE78BDB12B013F44A172F4964"
+          }
+        },
+        {
+          "client_id": "194174017313-so9qkct9ulmsp6vbsmml5ivdm2t4ll2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

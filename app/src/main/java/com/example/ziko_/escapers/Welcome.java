@@ -67,10 +67,13 @@ public class Welcome extends AppCompatActivity implements View.OnClickListener, 
         viewFlipper=(ViewFlipper) findViewById(R.id.view_flipper);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         google_signin=(SignInButton)findViewById(R.id.sign_in_button);
+
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail().build();
+        google_signin.setSize(google_signin.SIZE_WIDE);
+        google_signin.setScopes(gso.getScopeArray());
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this,this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
